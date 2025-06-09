@@ -1,0 +1,138 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("../assets/background.jpg");
+  background-repeat: repeat-x;
+  background-size: cover;
+  animation: scrollBackground 60s linear infinite;
+  overflow-x: hidden;
+}
+@keyframes scrollBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -1000px 0;
+  }
+}
+#game {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(3px);
+}
+
+
+@keyframes spinAndPulse {
+  0% {
+    transform: rotate(0deg) scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+    filter: brightness(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    filter: brightness(1);
+  }
+}
+
+#cookie {
+  animation: spinAndPulse 3s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+  cursor: pointer;
+}
+
+#game-clickable-area.active {
+  transform: scale(1.2);
+  transition: transform 0.1s;
+}
+
+/* PAGE PRINCIPALE */
+#game {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Colonne de gauche : score + cookie */
+#game-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+/* Score */
+#game-score {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+/* Boutique */
+#game-shop {
+  width: 50%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background: #fefdfd;
+  color: #333;
+  border-radius: 8px;
+  text-align: left;
+}
+
+#game-shop h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+#game-shop button {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.golden-cookie {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  animation: fadeInOut 5s ease-out forwards;
+  cursor: pointer;
+  z-index: 100;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+#reset-button {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #ff5f5f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+#reset-button:hover {
+  background-color: #e04848;
+}
