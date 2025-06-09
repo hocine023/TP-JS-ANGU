@@ -1,0 +1,53 @@
+<app-page-layout>
+  <section>
+    <h2>Catégories de recettes</h2>
+
+    <input
+      #searchInput
+      type="text"
+      placeholder="Rechercher une recette..."
+      (input)="updateSearch(searchInput.value)"
+      style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px;"
+    />
+
+    <!-- Affichage des catégories si pas de recherche -->
+    <div *ngIf="!searchQuery()">
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+        <button 
+          *ngFor="let cat of categories()" 
+          (click)="changeCategory(cat)" 
+          style="padding: 0.5rem 1rem; border: none; background-color: #1976d2; color: white; border-radius: 4px; cursor: pointer;">
+          {{ cat }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Chargement -->
+    <div *ngIf="isLoading(); else recipesList">Chargement des recettes...</div>
+
+    <!-- Liste des recettes -->
+    <ng-template #recipesList>
+      <div *ngIf="hasResults(); else noResults" style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <ng-container *ngIf="searchQuery(); else categoryRecipes">
+          <app-detailed-recipe-card
+            *ngFor="let recipe of recipeList()"
+            [recipe]="recipe"
+          ></app-detailed-recipe-card>
+        </ng-container>
+
+        <ng-template #categoryRecipes>
+          <div 
+            *ngFor="let recipe of recipeList()" 
+            style="border: 1px solid #ccc; padding: 1rem; width: 200px; text-align: center; border-radius: 8px;">
+            <img [src]="recipe.strMealThumb" alt="{{ recipe.strMeal }}" width="180" style="border-radius: 4px;">
+            <p>{{ recipe.strMeal }}</p>
+          </div>
+        </ng-template>
+      </div>
+    </ng-template>
+
+    <ng-template #noResults>
+      <p>Aucun résultat trouvé.</p>
+    </ng-template>
+  </section>
+</app-page-layout>
